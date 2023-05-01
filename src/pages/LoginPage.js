@@ -1,4 +1,4 @@
-//import axios from "axios";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
@@ -8,16 +8,16 @@ import imageLogo from "./logo.jpg";
 export default function LoginPage() {
 
   const [form, setForm] = useState({cpfCnpj: "", password: ""});
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   
   function login(e){
       e.preventDefault();
       
       console.log("Sucesso", form)
 
-    /*   axios.post("xxxxxxxxxxx", form)
-      .then((res) => navigate("/login"))
-      .catch((err) => alert(err.response.data)) */
+      axios.post("https://artsell-spg1.onrender.com/login", form)
+      .then((res) => navigate("/cadastro"))
+      .catch((err) => alert(err.response.data))
   } 
 
   return (

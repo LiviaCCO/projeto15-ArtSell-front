@@ -1,4 +1,4 @@
-//import axios from "axios";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
@@ -16,7 +16,7 @@ export default function SignUpPage() {
   const birthdayInMs = new Date(form.date);
   const years = differenceInYears(today, birthdayInMs);
     
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   
   function signUp(e){
       e.preventDefault();
@@ -27,9 +27,9 @@ export default function SignUpPage() {
       if(years < 18) return alert("Desculpe! Este app não é permitido para menores de 18 anos!");
       console.log("Sucesso", form)
 
-    /*   axios.post("xxxxxxxxxxx", form)
+      axios.post("https://artsell-spg1.onrender.com/sign-up", form)
       .then((res) => navigate("/login"))
-      .catch((err) => alert(err.response.data)) */
+      .catch((err) => alert(err.response.data)) 
   } 
 
   return (

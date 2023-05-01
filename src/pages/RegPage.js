@@ -6,16 +6,6 @@ import imageLogo from "./logo.jpg";
 
 export default function RegPage() {
   
-  function login(e){
-      e.preventDefault();
-      
-      console.log("Sucesso")
-
-    /*   axios.post("xxxxxxxxxxx", form)
-      .then((res) => navigate("/login"))
-      .catch((err) => alert(err.response.data)) */
-  } 
-
   return (
     <SingUpContainer>
         <Link to={"/cadastro"}>
