@@ -8,19 +8,18 @@ import differenceInYears from "date-fns/differenceInYears";
 
 export default function SignUpPage() {
 
-  const [form, setForm] = useState({ name: "", email: "", password: "", cpfCnpj: "" , date: ""});
+  const [form, setForm] = useState({ name: "", email: "", password: "", cpfCnpj: "" , birth: ""});
   const [emailConfirm, setEmailConfirm] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isChecked, setIsCheck] = useState(false);
   const today= new Date();
-  const birthdayInMs = new Date(form.date);
+  const birthdayInMs = new Date(form.birth);
   const years = differenceInYears(today, birthdayInMs);
     
   const navigate = useNavigate();
   
   function signUp(e){
       e.preventDefault();
-      console.log(years);
       if(form.email!==emailConfirm) return alert("E-mail divergente. Por favor, confirme seu e-mail!");
       if(form.password!==passwordConfirm) return alert("As senhas devem ser iguais!");
       if(isChecked===false) return alert("Você precisa ler e concordar com os termos de uso do ArtSell");
@@ -53,8 +52,8 @@ export default function SignUpPage() {
         <input 
         placeholder="Data de nascimento" 
         type="date" 
-        value={form.date}
-        onChange={(e) => setForm({ ...form, date: e.target.value })}
+        value={form.birth}
+        onChange={(e) => setForm({ ...form, birth: e.target.value })}
         />                   
         <input 
         placeholder="E-mail" 
