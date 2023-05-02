@@ -6,8 +6,14 @@ import { useEffect } from "react";
 export default function BagPage({total, setTotal, carrinho, setCarrinho, token, setToken, list, setList }) {
   const navigate = useNavigate();
 
+  if(!token){
+    alert("Você precisa estar logado para acessar seu carrinho!");
+    return navigate("/")
+  }
+
   function fechar(){
     const config = { headers: { Authorization: `Bearer ${token}` } }
+    
     
     return () => {
 
