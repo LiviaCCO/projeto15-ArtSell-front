@@ -1,24 +1,41 @@
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
-import imageLogo from "./logo.jpg";
 import { useEffect } from "react";
 
-
-export default function BagPage({total, setTotal, carrinho, setCarrinho}) {
+export default function BagPage({total, setTotal, carrinho, setCarrinho, token, setToken, list, setList }) {
   const navigate = useNavigate();
-  
+
   function fechar(){
-    console.log("fechar carrinho")
-    // enviar produtos escolhidos
-    // sair
+    const config = { headers: { Authorization: `Bearer ${token}` } }
+    
+    return () => {
+
+        axios.post(`${process.env.REACT_APP_API_URL}/logout`, {}, config)
+        //axios.post('https://artsell-spg1.onrender.com/logout', config)
+            .then(() => {
+                const newList = list.filter(elem => !carrinho.some(prod => prod.id === elem.id));
+                setList(newList);
+                setToken(undefined);
+                setCarrinho([]);
+                navigate("/")
+            })
+            .catch((err) => alert(err.response.data))
+    }
   }
 
-  function logout(){
-    console.log("Sair")
-    //sair sem comprar
-    console.log(carrinho)
-    console.log(carrinho.length)
+  function logout(){   
+    const config = { headers: { Authorization: `Bearer ${token}` } }
+    return () => {
+        axios.post(`${process.env.REACT_APP_API_URL}/logout`, {}, config)
+        //axios.post('https://artsell-spg1.onrender.com/logout', config)
+            .then(() => {
+                setToken(undefined)
+                setCarrinho([]);
+                navigate("/")
+            })
+            .catch((err) => alert(err.response.data))
+    }
   }
 
   function excluir(e){
@@ -41,7 +58,6 @@ export default function BagPage({total, setTotal, carrinho, setCarrinho}) {
   return (
     <ContainerBody>
       <Head>
-        {/* <img src={imageLogo}/> */}
         <StyleLink to={"/"}>
           <ion-icon name="arrow-back-outline"></ion-icon>
         </StyleLink>

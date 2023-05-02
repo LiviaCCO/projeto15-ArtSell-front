@@ -6,17 +6,7 @@ import imageLogo from "./logo.jpg";
 //import Context from "../../Context";
 
 
-export default function HomePage({carrinho, setCarrinho, setTotal}) {
-  
-  const list = [
-    {id: "01", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
-    {id: "02", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"},
-    {id: "03", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
-    {id: "04", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"},
-    {id: "05", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
-    {id: "06", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"}
-
-  ]
+export default function HomePage({carrinho, setCarrinho, setTotal, list}) {
  // const {user, setUser} = useContext(Context);
 /*   const config = {
     headers: {

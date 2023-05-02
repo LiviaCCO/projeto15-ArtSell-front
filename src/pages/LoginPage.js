@@ -5,18 +5,19 @@ import { useState } from "react";
 import imageLogo from "./logo.jpg";
 
 
-export default function LoginPage() {
-
+export default function LoginPage({setToken}) {
   const [form, setForm] = useState({cpfCnpj: "", password: ""});
   const navigate = useNavigate();
   
   function login(e){
       e.preventDefault();
-      
-      console.log("Sucesso", form)
-
-      axios.post("https://artsell-spg1.onrender.com/login", form)
-      .then((res) => navigate("/bag"))
+  
+    axios.post(`${process.env.REACT_APP_API_URL}/login`, form)
+     //axios.post('https://artsell-spg1.onrender.com/login', form)
+      .then((res) => {
+        setToken(res.data.token)
+        navigate("/bag")
+      })
       .catch((err) => alert(err.response.data))
   } 
 
