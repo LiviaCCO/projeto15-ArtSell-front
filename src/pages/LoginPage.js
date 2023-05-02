@@ -15,8 +15,8 @@ export default function LoginPage({setToken}) {
     //axios.post(`${process.env.REACT_APP_API_URL}/login`, form)
     axios.post('https://artsell-spg1.onrender.com/login', form)
       .then((res) => {
-        setToken(res.data.token)
-        navigate("/bag")
+        setToken(res.data)
+        setTimeout(navigate("/bag"), 500);
       })
       .catch((err) => alert(err.response.data))
   } 

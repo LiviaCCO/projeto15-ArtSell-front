@@ -6,16 +6,10 @@ import { useEffect } from "react";
 export default function BagPage({total, setTotal, carrinho, setCarrinho, token, setToken, list, setList }) {
   const navigate = useNavigate();
 
-  if(!token){
-    alert("Você precisa estar logado para acessar seu carrinho!");
-    return navigate("/")
-  }
+  useEffect(valorTotal, [carrinho]);
 
   function fechar(){
     const config = { headers: { Authorization: `Bearer ${token}` } }
-    
-    
-    return () => {
 
         axios.post(`${process.env.REACT_APP_API_URL}/logout`, {}, config)
         //axios.post('https://artsell-spg1.onrender.com/logout', config)
@@ -24,15 +18,14 @@ export default function BagPage({total, setTotal, carrinho, setCarrinho, token, 
                 setList(newList);
                 setToken(undefined);
                 setCarrinho([]);
+                alert("Parabéns pela compra! Seu pedido chegará em breve em seu endereço de cadastro!")
                 navigate("/")
             })
             .catch((err) => alert(err.response.data))
-    }
   }
 
   function logout(){   
     const config = { headers: { Authorization: `Bearer ${token}` } }
-    return () => {
         axios.post(`${process.env.REACT_APP_API_URL}/logout`, {}, config)
         //axios.post('https://artsell-spg1.onrender.com/logout', config)
             .then(() => {
@@ -41,7 +34,6 @@ export default function BagPage({total, setTotal, carrinho, setCarrinho, token, 
                 navigate("/")
             })
             .catch((err) => alert(err.response.data))
-    }
   }
 
   function excluir(e){
@@ -59,7 +51,6 @@ export default function BagPage({total, setTotal, carrinho, setCarrinho, token, 
     setTotal(soma);
   }
 
-  useEffect(valorTotal, [carrinho]);
 
   return (
     <ContainerBody>

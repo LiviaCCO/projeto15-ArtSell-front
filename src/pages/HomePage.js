@@ -1,29 +1,21 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 import imageLogo from "./logo.jpg";
-//import Context from "../../Context";
 
+export default function HomePage({carrinho, setCarrinho, setTotal, list, token}) {
+  const navigate = useNavigate();
 
-export default function HomePage({carrinho, setCarrinho, setTotal, list}) {
- // const {user, setUser} = useContext(Context);
-/*   const config = {
-    headers: {
-        "Authorization": `Bearer ${user.token}`
-    } 
-}
-  useEffect(()=>{
-    axios.get("mongodb://localhost:27017/dbProjeto15", config)
-    .then(resp=>setList(resp.data))
-    .catch(err=>console.log(err.response.data))     
-    }, [list]);
-*/
-    function buy(e){
-        const selecionado = carrinho.find(item=>item.id===e);
-        console.log(carrinho.includes(selecionado));
-        
-        if (selecionado) return (console.log("Já selecionado"));
+    function olharCarrinho(){
+      console.log("olhando")
+      if(!token){
+        alert("Você precisa estar logado para acessar seu carrinho!");
+        navigate("/login")
+      } else{
+      navigate("/bag")}
+    }
+    function buy(e){   
         const novoPedido = list.find(item=>item.id===e);
         const novoCarrinho = [...carrinho, novoPedido];
         setCarrinho(novoCarrinho);
@@ -43,7 +35,8 @@ export default function HomePage({carrinho, setCarrinho, setTotal, list}) {
         <img src={imageLogo}/>
         <Logo>ArtSell</Logo>
         <Icon>
-            <StyleLink to={"/bag"}><ion-icon name="cart-outline"></ion-icon></StyleLink>
+            {/* <StyleLink to={"/bag"}><ion-icon name="cart-outline"></ion-icon></StyleLink> */}
+            <ion-icon onClick={olharCarrinho} name="cart-outline"></ion-icon>
             <StyleLink to={"/login"}><ion-icon name="person-outline"></ion-icon></StyleLink>
         </Icon>
       </Head>
