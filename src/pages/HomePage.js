@@ -6,14 +6,17 @@ import imageLogo from "./logo.jpg";
 //import Context from "../../Context";
 
 
-export default function HomePage() {
-  //const [list, setList] = useState([]);
+export default function HomePage({carrinho, setCarrinho, setTotal}) {
+  
   const list = [
     {id: "01", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
     {id: "02", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"},
     {id: "03", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
-    {id: "04", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"}
-]
+    {id: "04", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"},
+    {id: "05", name: "Quadro Isso Não É Real", value: "300", image: "https://carrefourbr.vtexassets.com/arquivos/ids/48844828-540-auto?v=637870507290070000&width=540&height=auto&aspect=true"},
+    {id: "06", name: "Noite Estrelada - Van Gogh", value: "1000", image: "https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-pintores-famosos-quadro-retangular-vincent-van-gogh-noite-estrelada-sobre-o-rodano--p-1650461116987.jpg"}
+
+  ]
  // const {user, setUser} = useContext(Context);
 /*   const config = {
     headers: {
@@ -27,8 +30,22 @@ export default function HomePage() {
     }, [list]);
 */
     function buy(e){
-        console.log("comprar", e);
-    }
+        const selecionado = carrinho.find(item=>item.id===e);
+        console.log(carrinho.includes(selecionado));
+        
+        if (selecionado) return (console.log("Já selecionado"));
+        const novoPedido = list.find(item=>item.id===e);
+        const novoCarrinho = [...carrinho, novoPedido];
+        setCarrinho(novoCarrinho);
+    };
+    function valorTotal(){
+      let soma = 0;
+      for(let i=0; i<carrinho.length; i++){
+        soma+=(Number(carrinho[i].value));
+      }
+      setTotal(soma);
+    };
+    useEffect(valorTotal, [carrinho]);
 
   return (
     <ContainerBody>
@@ -41,34 +58,23 @@ export default function HomePage() {
         </Icon>
       </Head>
       <Bag>
-        <h1>A casa da arte</h1>
+        <h1>A sua casa de peças raras</h1>
         <Itens>
             {list.map(i=>
-            
             <Item2>
                 <img src={i.image}/>
                 <Info>
                     <p>{i.name}</p>
                     <span>R$ {i.value},00</span>
                 </Info>
-                <button onClick={()=>buy(i.id)}>Comprar</button>
-            </Item2>
-                
+                <button key={i.id} 
+                onClick={()=>buy(i.id)} 
+                disabled={carrinho.some((item) => item.id === i.id)}>Comprar</button>
+            </Item2> 
                 )}
-            <Item2>
-                <img src={imageLogo}/>
-                <Info>
-                    <p>Aqui a descrição dsojafiueshfiuheiufhvidsh</p>
-                    <span>R$ XX,xx</span>
-                    <button>Comprar</button>
-                </Info>
-            </Item2>
-           
-            
         </Itens>
 
       </Bag>  
-      
     </ContainerBody>
   )
 }
@@ -172,6 +178,11 @@ const Item2=styled.div`
     align-items: center;
     justify-content: space-around;
   }
+  button:disabled{
+    background-color: gray;
+  }
+ 
+  }
 `
 const Info=styled.div`
   display: flex;
@@ -180,7 +191,7 @@ const Info=styled.div`
   align-items: center;
   padding: 5px;
   width: 35vw;
-  word-break: break-all;
+  word-break: break-word;
   gap: 5px;
   ion-icon{
     position: absolute;

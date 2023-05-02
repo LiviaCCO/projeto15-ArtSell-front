@@ -102,12 +102,12 @@ const SingUpContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: rgb(187 197 207);
   gap: 10px;
   img{
     width: 80px;
   }
+  padding: 25px;
 `
 const Logo = styled.h1`
     font-size: 50px;

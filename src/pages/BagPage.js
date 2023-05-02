@@ -2,13 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import imageLogo from "./logo.jpg";
+import { useEffect } from "react";
 
 
-export default function BagPage() {
+export default function BagPage({total, setTotal, carrinho, setCarrinho}) {
   const navigate = useNavigate();
-  const [total, setTotal] = useState('0');
-  const soma = Number(total).toFixed(2);
-
+  
   function fechar(){
     console.log("fechar carrinho")
     // enviar produtos escolhidos
@@ -18,58 +17,71 @@ export default function BagPage() {
   function logout(){
     console.log("Sair")
     //sair sem comprar
+    console.log(carrinho)
+    console.log(carrinho.length)
   }
 
-  function excluir(){
-    console.log("Excluir")
+  function excluir(e){
+    console.log("Excluir", e)
     //excluir item da lista
+    const excluir = carrinho.filter(element => element.id !== e);
+    setCarrinho(excluir);
   }
+
+  function valorTotal(){
+    let soma = 0;
+    for(let i=0; i<carrinho.length; i++){
+      soma+=(Number(carrinho[i].value));
+    }
+    setTotal(soma);
+  }
+
+  useEffect(valorTotal, [carrinho]);
 
   return (
     <ContainerBody>
       <Head>
-        <img src={imageLogo}/>
+        {/* <img src={imageLogo}/> */}
         <StyleLink to={"/"}>
-          <Logo>ArtSell</Logo>
+          <ion-icon name="arrow-back-outline"></ion-icon>
         </StyleLink>
+        <Logo>ArtSell</Logo>
         <ion-icon onClick={logout} name="exit-outline"></ion-icon>
       </Head>
       <Bag>
         <h1>Meu carrinho</h1>
-        <Item>
-          <img src={imageLogo}/>
-          <Info>
-            <p>Aqui a descrição dsojafiueshfiuheiufhvidsh</p>
-            <span>R$ XX,xx</span>
-          </Info>
-          <ion-icon onClick={excluir} name="trash-outline"></ion-icon>
-        </Item>
-        <Item>
-          <img src={imageLogo}/>
-          <Info>
-            <p>Aqui a descrição</p>
-            <span>R$ XX,xx</span>
-          </Info>
-        </Item>
-        <Item>
-          <img src={imageLogo}/>
-          <Info>
-            <p>Aqui a descrição</p>
-            <span>R$ XX,xx</span>
-          </Info>
-        </Item>
-
+        {carrinho.length !== 0 ? (carrinho.map((i)=>
+          <Item>
+            <img src={i.image}/>
+            <Info>
+              <p>{i.name}</p>
+              <span>R$ {i.value},00</span>
+            </Info>
+            <ion-icon onClick={()=>excluir(i.id)} name="trash-outline"></ion-icon>
+          </Item>))
+          : (<Item>
+              <ion-icon name="cart"></ion-icon>
+              <p><span>Seu carrinho está vazio</span></p>
+            </Item>)
+        }
+        
       </Bag>
 
       <Footer>
-        <Tot>
-          <p>Total: <span>R$ {soma}</span></p>
-        </Tot>
-
-        <button onClick={fechar}>Clique aqui para pagar!</button>
+        
+        {carrinho.length !== 0 ? (
+          <>
+          <Tot>
+            <p>TOTAL: <span>R$ {total},00</span></p>
+          </Tot>
+          <button onClick={fechar}>Clique aqui para pagar!</button>
+          </>
+          ) : (
+          <StyleLink to={"/"}>
+            <button>Ir às compras!</button>
+          </StyleLink>
+        )}
       </Footer>
-    
-      
     </ContainerBody>
   )
 }
