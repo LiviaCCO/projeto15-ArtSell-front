@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import RegPage from "./pages/RegPage";
+import BagPage from "./pages/BagPage";
+import HomePage from "./pages/HomePage";
 
 
 export default function App() {
@@ -13,8 +15,8 @@ export default function App() {
         <Route path="/cadastro" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} /> 
         <Route path="/regulamento" element={<RegPage />} /> 
-        {/* <Route path="/home" element={<HomePage />} />
-        <Route path="/bag" element={<bagPage />} /> */}
+        <Route path="/home" element={<HomePage />} /> 
+        <Route path="/bag" element={<BagPage />} /> 
       </Routes>
     </BrowserRouter>
   )

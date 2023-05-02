@@ -16,7 +16,7 @@ export default function LoginPage() {
       console.log("Sucesso", form)
 
       axios.post("https://artsell-spg1.onrender.com/login", form)
-      .then((res) => navigate("/cadastro"))
+      .then((res) => navigate("/bag"))
       .catch((err) => alert(err.response.data))
   } 
 
