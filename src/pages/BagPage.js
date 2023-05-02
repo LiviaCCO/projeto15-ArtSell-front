@@ -6,17 +6,33 @@ import imageLogo from "./logo.jpg";
 
 export default function BagPage() {
   const navigate = useNavigate();
+  const [total, setTotal] = useState('0');
+  const soma = Number(total).toFixed(2);
 
   function fechar(){
     console.log("fechar carrinho")
+    // enviar produtos escolhidos
+    // sair
+  }
+
+  function logout(){
+    console.log("Sair")
+    //sair sem comprar
+  }
+
+  function excluir(){
+    console.log("Excluir")
+    //excluir item da lista
   }
 
   return (
     <ContainerBody>
       <Head>
         <img src={imageLogo}/>
-        <Logo>ArtSell</Logo>
-        <ion-icon name="exit-outline"></ion-icon>
+        <StyleLink to={"/"}>
+          <Logo>ArtSell</Logo>
+        </StyleLink>
+        <ion-icon onClick={logout} name="exit-outline"></ion-icon>
       </Head>
       <Bag>
         <h1>Meu carrinho</h1>
@@ -26,7 +42,7 @@ export default function BagPage() {
             <p>Aqui a descrição dsojafiueshfiuheiufhvidsh</p>
             <span>R$ XX,xx</span>
           </Info>
-          <ion-icon name="trash-outline"></ion-icon>
+          <ion-icon onClick={excluir} name="trash-outline"></ion-icon>
         </Item>
         <Item>
           <img src={imageLogo}/>
@@ -47,10 +63,10 @@ export default function BagPage() {
 
       <Footer>
         <Tot>
-          <p>Total: <span>R$ XX,XX</span></p>
+          <p>Total: <span>R$ {soma}</span></p>
         </Tot>
 
-        <button onClick={fechar}>Escolher forma de pagamento</button>
+        <button onClick={fechar}>Clique aqui para pagar!</button>
       </Footer>
     
       
@@ -135,6 +151,9 @@ const Item=styled.div`
     heigth: 30px;
   }
   position: relative;
+  ion-icon{
+    font-size: 30px;
+  }
 `
 const Info=styled.div`
   display: flex;
@@ -172,4 +191,10 @@ const Tot=styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`
+
+const StyleLink = styled(Link)`
+    text-decoration: none;
+    /* margin: 0px;
+    padding: 0px; */
 `

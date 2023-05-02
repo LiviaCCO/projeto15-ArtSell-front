@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/cadastro" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} /> 
         <Route path="/regulamento" element={<RegPage />} /> 
-        <Route path="/home" element={<HomePage />} /> 
+        <Route path="/" element={<HomePage />} /> 
         <Route path="/bag" element={<BagPage />} /> 
       </Routes>
     </BrowserRouter>
